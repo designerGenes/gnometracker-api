@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+ .container-fluid
+  .row.text-center
+   .col-md-6.col-md-offset-3(style={background: 'darkGray', padding: '16px'})
+    h2 
+     Available API paths:
+    br
+    br
+    ul.text-left
+     each command in commandsList
+      h2= command[0]
+      ul.text-left
+       each noun in command[1]
+        li= noun
+       each noun in command[2]
+        li= noun
+       
+      

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+.container-fluid
+  .row.text-center
+   .col-md-6.col-md-offset-3(style={background: 'darkGray', padding: '16px'})
+    h2 
+     Results:
+    br
+    br
+    ul
+    each result in results
+     li= result
