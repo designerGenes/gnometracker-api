@@ -51,11 +51,11 @@ var GnomeHuntingTipSchema = new mongoose.Schema ({
 module.exports = {
 	dburl : 'mongodb://localhost/gnometracker-db',
 	schemas : {
-		gnome: GnomeSchema,
-		town: TownSchema,
-		user: UserSchema,
-		testimonial: TestimonialSchema,
-		gnomeHuntingTip: GnomeHuntingTipSchema
+		"gnome": GnomeSchema,
+		"town": TownSchema,
+		"user": UserSchema,
+		"testimonial": TestimonialSchema,
+		"gnomeHuntingTip": GnomeHuntingTipSchema
 	},
 	models: {
 		Gnome: mongoose.model('Gnome', GnomeSchema),

@@ -2,13 +2,56 @@ extends layout
 
 block content
 
-.container-fluid
-  .row.text-center
-   .col-md-6.col-md-offset-3(style={background: 'darkGray', padding: '16px'})
-    h2 
-     Results:
-    br
-    br
-    ul
-    each result in results
-     li= result
+ .container-fluid
+   .row
+    .col-md-6.col-md-offset-3.text-left(style={background: 'lightGray', padding: '16px'})
+     - var totalRes = dbObj.length
+     - var results = totalRes > 1 ? "results" : "result"
+
+     h2 Showing #{totalRes} #{results}  
+     div(style= {display: inline-block, margin: "0px 0px 8 px 16px"})
+      span(style= {margin: "8px"}): a(onclick="history.go(-1)" href="") Prev
+      span(style= {margin: "8px"}): a(href="/api") API
+      - var starterURL = "/api/" + objType + "/rnd/"
+      form.form-inline(action=starterURL)
+       div.form-group
+        input.form-control(type="text", placeholder= "1", id="queryCount" , name="queryCount")
+        button.btn.btn-primary(type="submit", id="btnGetRandom") Get random #{objType}s
+     ul
+      each obj in dbObj
+       div
+        div 
+         .card
+          div.text-left(style={background: 'darkGray', padding: '12px', margin: '12px'})
+           blockquote.blockquote 
+            case objType 
+             when 'gnome' 
+              h1 #{obj.firstName} #{obj.lastName}
+            footer.blockquote-footer A gnome of ill repute
+           div(style={}): table.table.table-striped
+            thead: tr(style= {background: "#221D23", color: 'white'})
+             th #
+             th Key
+             th Value
+            tbody
+             tr
+              th(scope="row") 1
+              td DB ID
+              - var url = "/api/" + objType + "/" + obj._id
+              td: a(href=url) #{obj._id}
+             tr
+              th(scope="row") 2
+              td Christening name
+              td #{obj.christeningName}
+             tr
+              th(scope="row") 3
+              td Threat Level
+              td #{obj.threatLevel}
+
+          
+            
+
+
+
+     
+       

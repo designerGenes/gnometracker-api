@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var apiCommands = require('./apiCommands');
-var AC = new apiCommands();
+var resources = require('./apiHelp');
 var put = require('pug');
 
 
@@ -16,8 +15,9 @@ router.use('/user', require('./user'));
 router.use('/testimonial', require('./testimonial'));
 router.use('/ght', require('./ght'));
 router.use('/create', require('./create'));
+router.use('/stats', require('./stats'));
 router.use('/', function(req, res) {
-	res.render('apiHelp', {commandsList: AC.commandsList()});
+	res.render('apiHelp', {title: "API Directory", resources: resources.res});
 });
 	
 

@@ -1,0 +1,128 @@
+extends layout
+
+block content
+ // script.
+ // - function makeNoise() {return "h1 we made it!" }
+ - function toggleGroup(x) { alert("hey!");  }
+
+ mixin makeBox(type)
+  div&attributes(attributes)
+   if (type == "gnome")
+    div: +gnomeBox
+   else if (type == "town")
+    div: +townBox
+   else if (type == "testimonial")
+    div: +testimonialBox
+   else if (type == "ght")
+    div: +ghtBox
+
+
+   
+  // script.
+  //  if type == "town"
+ mixin townBox
+  div&attributes(attributes)
+  .input-group(style={margin: "16px"})
+   span.input-group-addon Town Name
+   input.form-control(type="text", name="townName")
+  button.btn.btn-block.btn-primary(type="submit") Submit
+
+ mixin testimonialBox
+  div&attributes(attributes)
+  div(style={margin: "16px"})
+   textarea.form-control(rows="4", name="summary")
+  button.btn.btn-block.btn-primary(type="submit") Submit
+
+ mixin ghtBox
+  div&attributes(attributes)
+  div(style={margin: "16px"})
+   textarea.form-control(rows="4", name="summary")
+  button.btn.btn-block.btn-primary(type="submit") Submit
+    
+ mixin gnomeBox
+  div&attributes(attributes)
+  .input-group(style={margin: "16px"})
+   span.input-group-addon First Name
+   input.form-control(type="text", name="firstName")
+  .input-group(style={margin: "16px"})
+   span.input-group-addon Last Name
+   input.form-control(type="text", name="lastName")
+  .input-group(style={margin: "16px"})
+   span.input-group-addon Christening Name
+   input.form-control(type="text", name="christeningName")
+  .input-group(style={margin: "16px"})
+   span.input-group-addon Threat level
+   input.form-control(type="text", name="threatLevel")
+  button.btn.btn-block.btn-primary(type="submit") Submit
+ // - function toggleGroup(x)
+ // -  var box = document.getElementById("CreationBox")
+ // -  if (x < 2) { box.innerHTML =
+ // -  
+   
+ //   form: .input-group
+ //    span.input-group-addon Last Name
+ //    input.form-control(type="text")
+ //    }
+ // - toggleGroup();
+
+
+ .container
+  div(style={background: 'lightgray', padding: '16px', margin: "16px"}).col-md-9.col-md-offset-3
+
+   .row
+    div(style={margin:"16px 0px 72px 18px"})
+     h1 Create new #{objType}
+    div.text-center(style={margin:"24px 50px 32px 32px"})
+     h2 There are several ways to create a new #{objType}
+
+   .row(style={margin: "8px 18px"})
+     div.col-md-4(style={"margin-right": "12px", width: "85px", float: "left"}) 
+      h1(style={"font-size": "80px"}) 1
+     div.col-md-8
+      p: strong Enter number of #{objType}s to create with random properties
+      - var starterURL = "/api/create/" + objType
+      form(action=starterURL, method= "post").form-group
+       .input-group 
+        input(type="text", name="createCount", placeholder="0").form-control 
+        span.input-group-btn
+         button(style={}, type="submit" ).btn.btn-primary.btn-block Create
+
+   .row(style={display: "block", margin: "0px"})
+    .col-md-4(style={float: "left", display: "inline-block"}): div(style={width: "100%", height: "9px", background: 'black'})
+    .col-md-4.text-center(style={display: "block"}): div(style={position: "absolute", width: "80%", top: "-35px", }): h1 OR
+    .col-md-4(style={float: "right", display: "inline-block"}): div(style={width: "100%", height: "9px", background: 'black'})
+
+   .row(style={margin: "16px 18px", position: "relative"})
+     div.col-md-4(style={"margin-right": "12px", width: "85px", float: "left"}) 
+      h1(style={"font-size": "80px"}) 2
+     div.col-md-8
+      .input-group
+       form(action="/api/create/submit")
+        div.btn-group(data-toggle="buttons", id="toggleGroup", style={"padding-top": "30px"})
+         button.btn.btn-secondary(style={background: "black", color: "white"}) pick a template
+         button.btn.btn-success.active(style={ color: "white"}, type="button"): a(href='/api/create/gnome', style={ color: "white"}) Gnome
+         button.btn.btn-success(type="button"): a(href='/api/create/town', style={ color: "white"}) Town
+         button.btn.btn-success(type="button"): a(href='/api/create/testimonial', style={ color: "white"}) Testimonial
+         button.btn.btn-success(type="button"): a(href='/api/create/ght', style={ color: "white"}) GHT
+      div(style={background: 'white', padding: "8px", id: "newBox"})
+       +makeBox(objType)
+       
+       // 	+townBox
+       
+
+
+       
+
+    
+
+
+ footer
+  
+  
+
+
+
+
+
+
+

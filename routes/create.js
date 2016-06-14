@@ -1,6 +1,7 @@
 var express = require('Express');
 var router = express.Router();
 var db = require('../db');
+var http = require('http')
 var faker = require('faker');
 
 var stringToModelDict = {
@@ -8,6 +9,10 @@ var stringToModelDict = {
 	"town": db.models.Town,
 	"user": db.models.User,
 };
+
+var renderResults = function(req, res, objType) {
+	res.render('create', {title: "Create", objType: objType});
+}
 
 var returnRandomPropertiesFor = function(objType) {
 	switch (objType) {
@@ -31,9 +36,7 @@ var returnRandomPropertiesFor = function(objType) {
 			return {};
 	}
 }
-
-router.get('/:objType/:x', function (req, res) {
-	console.log("Got here");
+router.use('/:objType/:x', function (req, res) {
 	var objType = req.params.objType;
 	var x = req.params.x;
 
@@ -46,12 +49,24 @@ router.get('/:objType/:x', function (req, res) {
 			var newObj = new Model(objPropList);
 			newObj.save();
 		}
-		res.json({msg:"Success"});
+		res.redirect('/')
+		// res.json({msg:"Success"});
 	} else {
 		res.json({error: "not valid model to create"});
 	} 
+});
 
+router.post('/:objType/', function(req, res) {
 	
+	var objType = req.params.objType;
+	var x = req.body.createCount;
+	var out = objType + "/" + x;
+	res.redirect(out)
+})
+
+router.get('/:objType', function(req, res) {
+	var objType = req.params.objType;
+	renderResults(req, res, objType)
 });
 
 module.exports = router;

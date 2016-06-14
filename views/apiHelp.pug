@@ -4,18 +4,47 @@ block content
 
  .container-fluid
   .row.text-center
-   .col-md-6.col-md-offset-3(style={background: 'darkGray', padding: '16px'})
-    h2 
+   .col-md-6.col-md-offset-3(style={background: 'gray', padding: '16px', margin: "16px"})
+    h2. 
      Available API paths:
     br
     br
-    ul.text-left
-     each command in commandsList
-      h2= command[0]
-      ul.text-left
-       each noun in command[1]
-        li= noun
-       each noun in command[2]
-        li= noun
+  each res in resources 
+   .row.text-left(style={background: 'darkgray', padding: "16px 16px", margin: "8px"})
+    .col-md-10 
+     div(style={margin: "8px"})
+      span(style={float: "left"}): h1 #{res.root}
+      .btn-group(style={float: "right"})
+       if res.root != "/create" && res.root != "/user"
+        - var btnURL = "/api/create" + res.root
+        a(href=btnURL).btn.btn-success(style={margin: "8px"}) Create
+       - var buttonURL = "/api/stats" + res.root 
+       a(href=buttonURL).btn.btn-primary(style={margin: "8px"}) View stats
+    .col-md-10
+     dl.dl-horizontal(style={})
+      if res.nouns
+       each noun in res.nouns
+        dt(style={"white-space": 'normal'})
+         col-sm-4: strong #{noun.path}
+        dd.com-sm-8 #{noun.desc}
+     dl.dl-horizontal(style={})
+      if res.verbs
+       each verb in res.verbs
+        dt(style={"white-space": 'normal'})
+          col-sm-4: strong #{verb.path}
+        dd.com-sm-8 #{verb.desc}
+     
+      
+
+    // div(style={}): table.table.table-striped
+    //  tbody
+    //   tr
+    //    th(scope="row") 1
+    //   each noun in commands[1]
+    //    tr: td #{noun}
+    //   each noun in commands[2]
+    //    tr: td #{noun}
+
+       
        
       
